@@ -5,14 +5,14 @@ import math
 from subprocess import PIPE, run
 
 #probably don't touch these
-BITRATE_COMMAND = "ffprobe -v error -select_streams v:0 -show_entries stream=bit_rate -of default=nokey=1:noprint_wrappers=1 {0}"
+BITRATE_COMMAND = "ffprobe -v error -select_streams v:0 -show_entries format=bit_rate -of default=nokey=1:noprint_wrappers=1 {0}"
 FAST_CONVERT_COMMAND = "ffmpeg -y -i {0} -vf \"scale='min({1},iw)':-1\" -map 0:v -c:v libvpx -speed 3 -b:v {2} {3}"
 SLOW_CONVERT_COMMAND = "ffmpeg -y -i {0} -vf \"scale='min({1},iw)':-1\" -map 0:v -c:v libvpx -b:v {2} {3}"
 
 #user config area
 CONVERT_COMMAND = FAST_CONVERT_COMMAND #SLOW_CONVERT_COMMAND for much slower but higher quality
 OUTPUT_NAME = "video.webm" #outputs to this file name in same folder as source video
-MAX_BITRATE = 2500000 #denoted in bps, default equal to 2500 kbps
+MAX_BITRATE = 3000000 #denoted in bps, default equal to 2500 kbps
 MAX_WIDTH = 1280 #for 1280x720, enforces width to keep aspect ratio
 FORCE_OVERWRITE = False #True if you want to overwrite without prompting
 
@@ -31,8 +31,9 @@ def getPath():
     videoFolder = videoFolder.replace(r"\ ", " ")
     return(videoFolder)
 
-def getVideoFiles(): #uses glob to get all mp4 files in folder recursively
+def getVideoFiles(): #uses glob to get all mp4 and mkv files in folder recursively
     videoFiles = glob.glob("./**/*.mp4", recursive=True)
+    videoFiles.extend(glob.glob("./**/*.mkv", recursive=True)) 
     return(videoFiles)
 
 def getBitrate(file): #uses ffprobe command to get bitrate of current file
