@@ -12,7 +12,7 @@ SLOW_CONVERT_COMMAND = "ffmpeg -y -i {0} -vf \"scale='min({1},iw)':-1\" -map 0:v
 #user config area
 CONVERT_COMMAND = FAST_CONVERT_COMMAND #SLOW_CONVERT_COMMAND for much slower but higher quality
 OUTPUT_NAME = "video.webm" #outputs to this file name in same folder as source video
-MAX_BITRATE = 3000000 #denoted in bps, default equal to 2500 kbps
+MAX_BITRATE = 3000000 #denoted in bps, default equal to 3000 kbps
 MAX_WIDTH = 1280 #for 1280x720, enforces width to keep aspect ratio
 FORCE_OVERWRITE = False #True if you want to overwrite without prompting
 
