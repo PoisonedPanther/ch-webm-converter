@@ -38,7 +38,7 @@ def getVideoFiles(): #uses glob to get all mp4 and mkv files in folder recursive
 
 def getBitrate(file): #uses ffprobe command to get bitrate of current file
     bitrate = out(BITRATE_COMMAND.format(file))
-    return(min(int(bitrate), 2500000))
+    return(min(int(bitrate), MAX_BITRATE))
 
 def convert(file): #converts using specified ffmpeg command
     oldDir = os.getcwd()
